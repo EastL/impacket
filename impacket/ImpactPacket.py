@@ -2106,6 +2106,30 @@ class ARP(Header):
             tmp_str += '\n' + str(self.child())
         return tmp_str
 
+class IEEE802154(Header):
+    def __init__(self, aBuffer = None):
+        Header.__init__(self, 9)
+        if(aBuffer):
+            self.load_header(aBuffer)
+
+    def load_header(self, aBuffer):
+        self.set_bytes_from_string(aBuffer[:9])
+   
+    def get_header_size(self):
+        return 9
+
+    def get_control_field(self):
+        return self.get_word(0)
+    
+    def get_dpan(self):
+        return self.get_bytes()[3:5]
+
+    def get_dst(self):
+        return self.get_bytes()[5:7]
+
+    def get_src(self):
+        return self.get_bytes()[7:9]
+
 def example(): #To execute an example, remove this line
     a = Ethernet()
     b = ARP()

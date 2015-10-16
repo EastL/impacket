@@ -64,6 +64,15 @@ class Decoder:
             i+=1
         return out
 
+class IEEE8021504Decoder(Decoder):
+    def __init__(self):
+        pass
+
+    def decode(self, aBuffer):
+        e = ImpactPacket.IEEE802154(aBuffer)
+        off = e.get_header_size()
+        return e
+
 class EthDecoder(Decoder):
     def __init__(self):
         pass
